@@ -16,6 +16,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -46,7 +47,7 @@ public class EmployeeServiceImpl implements EmployeeService
         return Optional.of(employeeMapper.employeeDTOtoEmployee(employeeDTO))
                 .map(employee -> {
                     employee.setPassword(passwordEncoder.encode(employee.getPassword()));
-                    employee.setAuthorities(Set.of(authorityService.getByAuthorityEnum(AuthorityEnum.EMPLOYEE)));
+                    employee.setAuthorities(List.of(authorityService.getByAuthorityEnum(AuthorityEnum.EMPLOYEE)));
                     return employee;
                 })
                 .map(employeeRepository::save)

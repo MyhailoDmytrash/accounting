@@ -10,14 +10,17 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.security.Key;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -40,7 +43,7 @@ public class JWTServiceImpl implements JWTService
         return Jwts.builder().setClaims(Map.of(
                 "email", userDetails.getUsername(),
                 "password", userDetails.getPassword(),
-                "auth", userDetails.getAuthorities()
+                "auth", userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList())
                     ))
                 .signWith(key)
                 .compact();
@@ -50,16 +53,15 @@ public class JWTServiceImpl implements JWTService
     public Optional<Authentication> parse(String jwt) {
         try
         {
-            Claims claims = (Claims) Jwts.parserBuilder()
-                    .requireAudience(key.toString())
+            Claims claims = Jwts.parserBuilder()
+                    .setSigningKey(key)
                     .build()
-                    .parse(jwt).getBody();
-
+                    .parseClaimsJws(jwt).getBody();
 
             return Optional.of(new UsernamePasswordAuthenticationToken(
                     claims.get("email"),
                     claims.get("password"),
-                    List.of((Authority[])claims.get("auth"))
+                    ((List<String>)claims.get("auth")).stream().map(Authority::new).collect(Collectors.toList())
             ));
         }
         catch (Throwable exception)

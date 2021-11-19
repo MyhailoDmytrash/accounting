@@ -27,7 +27,7 @@ public class EmployeeDTO
     @NotBlank(groups = {EmployeeDTOTransfer.Registration.class})
     private String email;
 
-    private Set<Authority> authorities;
+    private Set<AuthorityDTO> authorities;
 
     private DepartmentDTO department;
 

@@ -4,11 +4,11 @@ import com.work.accounting.models.dtos.EmployeeDTO;
 import com.work.accounting.models.entities.Employee;
 import org.mapstruct.*;
 
-@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = "spring")
+@Mapper(componentModel = "spring")
 public interface EmployeeMapper
 {
     @Mappings({
-            @Mapping(target = "password", ignore = true)
+            @Mapping(target = "password", ignore = true),
     })
     EmployeeDTO employeeToEmployeeDTO(Employee employee);
 

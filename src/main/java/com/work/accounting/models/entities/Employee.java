@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -21,7 +22,7 @@ public class Employee extends BaseEntity implements UserDetails
     private String email;
 
     @ManyToMany(mappedBy = "employees")
-    protected Set<Authority> authorities;
+    protected List<Authority> authorities;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "department_id")

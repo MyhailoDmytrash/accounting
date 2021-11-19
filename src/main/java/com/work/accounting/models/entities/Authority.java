@@ -3,6 +3,7 @@ package com.work.accounting.models.entities;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
@@ -10,6 +11,7 @@ import java.util.Set;
 
 @Data
 @Entity
+@ToString(of = {"authority"})
 @NoArgsConstructor
 @EqualsAndHashCode(of = { "authority" })
 public class Authority implements GrantedAuthority

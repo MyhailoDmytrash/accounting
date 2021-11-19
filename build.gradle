@@ -26,7 +26,7 @@ dependencies {
     implementation group: 'javax.validation', name: 'validation-api', version: '2.0.1.Final'
     implementation 'org.modelmapper:modelmapper:2.1.1'
     implementation 'org.mapstruct:mapstruct:1.4.2.Final'
-    implementation 'org.mapstruct:mapstruct-processor:1.4.2.Final'
+    //implementation 'org.mapstruct:mapstruct-processor:1.4.2.Final'
     implementation 'io.jsonwebtoken:jjwt-api:0.11.2'
 
     compileOnly 'org.projectlombok:lombok'

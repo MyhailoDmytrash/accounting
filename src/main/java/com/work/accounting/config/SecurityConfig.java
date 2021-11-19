@@ -32,9 +32,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
 
         http.csrf().disable();
 
-        http.authorizeRequests().antMatchers("/person/registration/**", "/person/authentication/**").permitAll()
-                .antMatchers("/department/**").hasAuthority(AuthorityEnum.DEPARTMENT_DIRECTOR.name())
-                .antMatchers("/department/create").hasAuthority(AuthorityEnum.ADMIN.name())
+        http.authorizeRequests()
+                .antMatchers("/department/**").hasAnyAuthority(AuthorityEnum.DEPARTMENT_DIRECTOR.name(), AuthorityEnum.ADMIN.name())
+                .antMatchers("/employee/register/**", "/employee/authentication/**").permitAll()
                 .anyRequest().authenticated();
     }
 }
