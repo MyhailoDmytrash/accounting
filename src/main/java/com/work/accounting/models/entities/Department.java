@@ -24,4 +24,10 @@ public class Department extends BaseEntity
 
     @OneToMany(mappedBy = "department", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     protected Set<Employee> employees;
+
+    @PrePersist
+    protected void doOnCreate()
+    {
+        super.doOnCreate();
+    }
 }

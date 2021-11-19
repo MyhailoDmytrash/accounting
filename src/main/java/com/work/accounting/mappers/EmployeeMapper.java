@@ -2,10 +2,7 @@ package com.work.accounting.mappers;
 
 import com.work.accounting.models.dtos.EmployeeDTO;
 import com.work.accounting.models.entities.Employee;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.Mappings;
-import org.mapstruct.ReportingPolicy;
+import org.mapstruct.*;
 
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = "spring")
 public interface EmployeeMapper
@@ -14,4 +11,13 @@ public interface EmployeeMapper
             @Mapping(target = "password", ignore = true)
     })
     EmployeeDTO employeeToEmployeeDTO(Employee employee);
+
+    @BeanMapping(ignoreByDefault = true)
+    @Mappings({
+            @Mapping(target = "name", source = "employeeDTO.name"),
+            @Mapping(target = "surname", source = "employeeDTO.surname"),
+            @Mapping(target = "email", source = "employeeDTO.email"),
+            @Mapping(target = "password", source = "employeeDTO.password")
+    })
+    Employee employeeDTOtoEmployee(EmployeeDTO employeeDTO);
 }

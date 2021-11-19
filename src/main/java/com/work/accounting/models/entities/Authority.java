@@ -2,6 +2,7 @@ package com.work.accounting.models.entities;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
@@ -9,6 +10,7 @@ import java.util.Set;
 
 @Data
 @Entity
+@NoArgsConstructor
 @EqualsAndHashCode(of = { "authority" })
 public class Authority implements GrantedAuthority
 {
@@ -23,4 +25,9 @@ public class Authority implements GrantedAuthority
             joinColumns = @JoinColumn(name = "authority_id"),
             inverseJoinColumns = @JoinColumn(name = "employee_id"))
     protected Set<Employee> employees;
+
+    public Authority(String authority)
+    {
+        this.authority = authority;
+    }
 }

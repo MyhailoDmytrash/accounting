@@ -15,6 +15,21 @@ public class EmployeeControllerImpl implements EmployeeController
 
     @Override
     public EmployeeDTO getMyData(Authentication authentication) {
-        return null;
+        return employeeService.getAllMyData(authentication);
+    }
+
+    @Override
+    public EmployeeDTO register(EmployeeDTO employeeDTO) {
+        return employeeService.registration(employeeDTO);
+    }
+
+    @Override
+    public EmployeeDTO update(EmployeeDTO employeeDTO) {
+        return employeeService.update(employeeDTO);
+    }
+
+    @Override
+    public String authentication(EmployeeDTO employeeDTO) {
+        return employeeService.authentication(employeeDTO);
     }
 }

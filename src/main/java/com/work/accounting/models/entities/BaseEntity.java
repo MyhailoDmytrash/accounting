@@ -3,12 +3,11 @@ package com.work.accounting.models.entities;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
+import java.util.Date;
 import java.util.UUID;
 
-@EqualsAndHashCode(of = { "entityUUID" })
 @MappedSuperclass
+@EqualsAndHashCode(of = { "entityUUID" })
 public abstract class BaseEntity
 {
     @Id
@@ -18,12 +17,13 @@ public abstract class BaseEntity
     @Column(name = "entity_uuid")
     protected String entityUUID;
 
-    protected ZonedDateTime createDate;
+    @Column(name = "create_date")
+    protected Date createDate;
 
-    @PrePersist
-    protected void onCreate()
+    protected void doOnCreate()
     {
         entityUUID = UUID.randomUUID().toString();
-        createDate = ZonedDateTime.now(ZoneId.of("EET"));
+        createDate = new Date();
     }
 }
+
